@@ -4,7 +4,10 @@ import i18n from './i18n';
 import { Link } from 'react-router-dom';
 import patient from './patient.ico';
 import admin from './admin.ico';
-import './App.css'
+import './App.css';
+import en from './en.jpg';
+import fr from './fr.png';
+import mg from './mg.svg'
 
 
 class HomepageAll extends React.Component {
@@ -20,9 +23,15 @@ class HomepageAll extends React.Component {
 		return (
 			<div>
                 <div className="flex items-center justify-center h-20 bg-purple-600 text-2xl font-serif text-white">
-					<button onClick={() => this.changeLanguage("en")} className="ml-5 mr-5" >EN</button>
-					<button onClick={() => this.changeLanguage("fr")} className="ml-5 mr-5">FR</button>
-					<button onClick={() => this.changeLanguage("mg")}>MG</button>
+					<button onClick={() => this.changeLanguage("en")} className="ml-5 mr-5" >
+						<img src={en} alt="EN" width="100"></img>
+					</button>
+					<button onClick={() => this.changeLanguage("mg")}>
+						<img src={mg} alt="MG" width="100"></img>
+					</button>
+					<button onClick={() => this.changeLanguage("fr")} className="ml-5 mr-5">
+						<img src={fr} alt="FR" width="100"></img>
+					</button>
 				</div>
 				<div id="bg-home">
 					<div className="flex items-center justify-center text-2xl h-36 text-purple-900">
