@@ -41,21 +41,21 @@ class AdminCategory extends React.Component {
                     <HeaderAdmin/>
                     <div >
                         <label className="flex justify-center mt-10 text-3xl text-white">{t('This is the list of all Categories')}</label>
-                        <label className="flex justify-center my-10 text-white">
+                        <label className="flex justify-center my-10 text-white ">
                              <Link to={'/AddCategory'}>{t('Create new category')}</Link>
                        </label>
-                       <div>
+                       <div class="grid grid-cols-2 gap-4 ml-40">
                             {this.state.categories.map(category =>(
-                                <div className="flex justify-end w-7/12  my-10" key={category.id}>
-                                <label className="flex w-2/12 break-all text-white">
-                                    {i18n.language==='en'?(category.labelle_categorie):(i18n.language==='fr' && category.categorie_french!==null?(category.categorie_french):(i18n.language==='mg' && category.categorie_malagasy!==null?(category.categorie_malagasy):(category.labelle_categorie)))}
-                                 </label>
-                                <label className="text-blue-500 mx-10">
-                                    <Link to={`/EditCategory/${category.id}`}>{t('edit')}</Link>
-                                 </label>
-                                 <label className="text-red-500" onClick={e => this.deleteCategory(category.id)}>
-                                    {t('delete')}
-                                 </label>
+                                <div className="flex justify-center rounded-full items-center w-8/12 h-10 my-10 text-white bg-purple-600" key={category.id}>
+                                    <label className="flex break-all text-white text-base">
+                                        {i18n.language==='en'?(category.labelle_categorie):(i18n.language==='fr' && category.categorie_french!==null?(category.categorie_french):(i18n.language==='mg' && category.categorie_malagasy!==null?(category.categorie_malagasy):(category.labelle_categorie)))}
+                                    </label>
+                                    <label className="text-blue-500 mx-10">
+                                        <Link to={`/EditCategory/${category.id}`}>{t('edit')}</Link>
+                                    </label>
+                                    <label className="text-red-500" onClick={e => this.deleteCategory(category.id)}>
+                                        {t('delete')}
+                                    </label>
                                 </div>
                             ))}
                         </div>

@@ -4,7 +4,6 @@ import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import { adminLoginAttempt } from '../../../redux/Auth/auth.action';
 import { withTranslation } from 'react-i18next';
-import i18n from '../../../i18n';
 import '../../admin.css'
 
 const LoginSchema = Yup.object().shape({

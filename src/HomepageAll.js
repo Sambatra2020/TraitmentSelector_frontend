@@ -35,13 +35,13 @@ class HomepageAll extends React.Component {
 					<div className="flex items-center justify-center text-3xl text-purple-600 ml-10">
 						<label >
 							<Link to={'/Patient'}>
-								<img src={patient}></img>
+								<img src={patient} alt="patient"></img>
 								{t('PATIENT')}
 							</Link>
 						</label>
 						<label className="mx-20">
 							<Link to={'/Signin'}>
-							<img src={admin}></img>
+							<img src={admin} alt="admin"></img>
 								{t('ADMIN')}
 							</Link>
 						</label>

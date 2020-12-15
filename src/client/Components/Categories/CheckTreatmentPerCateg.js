@@ -54,15 +54,16 @@ class FinishTreatment extends React.Component {
                        
                         {this.state.showTreatments === categorie.id? (
                             <>
-                            {this.props.treatments_per_categorie[categorie.id].map(treatment =>(
-                                <div className="flex justify-end w-7/12 my-10">
-                                    <label className="w-1/3" key={treatment.id}>
-                                        <Field type="radio"  value={treatment.id.toString()} name="treatment_id" />
-                                        {i18n.language==='en'?(treatment.title):(i18n.language==='fr' && treatment.traduction_french?(treatment.traduction_french):(i18n.language==='mg' && treatment.traduction_malagasy?(treatment.traduction_malagasy):(treatment.title)))}
-                                    </label>
-                                </div>
-                                
+                            <div  className="grid grid-cols-3 gap-4 ml-40">
+                                {this.props.treatments_per_categorie[categorie.id].map(treatment =>(
+                                    <div className="flex justify-center rounded-full items-center w-8/12 h-10 my-10 text-white bg-purple-600">
+                                        <label key={treatment.id}>
+                                            <Field type="radio"  value={treatment.id.toString()} name="treatment_id" />
+                                            {i18n.language==='en'?(treatment.title):(i18n.language==='fr' && treatment.traduction_french?(treatment.traduction_french):(i18n.language==='mg' && treatment.traduction_malagasy?(treatment.traduction_malagasy):(treatment.title)))}
+                                        </label>
+                                    </div>
                                 ))}
+                            </div>
                             </>
                         ):null}
                         </>

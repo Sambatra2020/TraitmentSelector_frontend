@@ -44,18 +44,18 @@ class AdminTreatments extends React.Component {
                         <label className="flex justify-center my-10 text-white">
                              <Link to={'/AddTreatment'}>{t('Create new treatment')}</Link>
                        </label>
-                       <div>
+                       <div className="grid grid-cols-2 gap-4 ml-40">
                             {this.state.treatments.map(treatment =>(
-                                <div className="flex justify-end w-7/12  my-10" key={treatment.id}>
-                                <label className="flex w-2/12 break-all text-white text-base">
-                                    {i18n.language==='en'?(treatment.title):(i18n.language==='fr' && treatment.traduction_french?(treatment.traduction_french):(i18n.language==='mg' && treatment.traduction_malagasy?(treatment.traduction_malagasy):(treatment.title)))}
-                                 </label>
-                                <label className="text-purple-900 mx-10">
-                                    <Link to={`/EditTreatment/${treatment.id}`}>{t('edit')}</Link>
-                                 </label>
-                                 <label className="text-red-500" onClick={e => this.deleteTreatment(treatment.id)}>
-                                    {t('delete')}
-                                 </label>
+                                <div className="flex justify-center rounded-full items-center w-8/12 h-10 my-10 text-white bg-purple-600" key={treatment.id}>
+                                    <label className="flex break-all text-white text-base">
+                                        {i18n.language==='en'?(treatment.title):(i18n.language==='fr' && treatment.traduction_french?(treatment.traduction_french):(i18n.language==='mg' && treatment.traduction_malagasy?(treatment.traduction_malagasy):(treatment.title)))}
+                                    </label>
+                                    <label className="text-blue-900 mx-10">
+                                        <Link to={`/EditTreatment/${treatment.id}`}>{t('edit')}</Link>
+                                    </label>
+                                    <label className="text-red-500" onClick={e => this.deleteTreatment(treatment.id)}>
+                                        {t('delete')}
+                                    </label>
                                 </div>
                             ))}
                         </div>
