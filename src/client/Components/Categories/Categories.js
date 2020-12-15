@@ -1,7 +1,11 @@
 import React from 'react';
 import axios from '../../../axios';
+import Header from '../Header/Header';
 import Registration from '../Registration/Registration';
 import FinishTreatment from './CheckTreatmentPerCateg';
+import { withTranslation } from 'react-i18next';
+import i18n from '../../../i18n';
+import '../../client.css'
 
 class Categories extends React.Component {
     constructor (props) {
@@ -37,13 +41,20 @@ class Categories extends React.Component {
             console.log(response)
         })
      }
-    
+     changeLanguage = (language) => {
+		i18n.changeLanguage(language);
+	  };
+
+
 	render() {
         
         return (
-			<div>
-                {this.state.etape===1?(<Registration changerEtape={this.changerEtape}/>):null}
-                {this.state.etape===2 && this.state.categories ?(<FinishTreatment name={this.state.name} patient_id={this.state.patient_id} categories={this.state.categories} treatments_per_categorie={this.state.treatments_per_categorie}/>):null}
+			<div id="background">
+                <Header/>
+                <div >
+                    {this.state.etape===1?(<Registration changerEtape={this.changerEtape}/>):null}
+                    {this.state.etape===2 && this.state.categories ?(<FinishTreatment name={this.state.name} patient_id={this.state.patient_id} categories={this.state.categories} treatments_per_categorie={this.state.treatments_per_categorie}/>):null}
+                </div>
             </div>
         )
 		
@@ -51,4 +62,4 @@ class Categories extends React.Component {
 }
 
 
-export default Categories;
+export default withTranslation()(Categories);

@@ -7,27 +7,27 @@ import history from '../../../History';
 import axios from '../../../axios';
 import HeaderAdmin from '../../HeaderAdmin';
 import { withTranslation } from 'react-i18next';
+import '../../admin.css'
 
-
-class FormEditTreatment extends React.Component {
+class FormEditCategory extends React.Component {
     state={
-        treatment:{},
+        category:{},
         initValue:null
     }
 
-    EditTreatmentSchema = Yup.object().shape({
-		title: Yup.string()
-            .required('title not null'),
+    EditCategorySchema = Yup.object().shape({
+		labelle_categorie: Yup.string()
+            .required('this label not null'),
     });
     componentDidMount(){
-        axios.get(`/treatments/${this.props.id}`).then(response =>{
+        axios.get(`/categories/${this.props.id}`).then(response =>{
             if(response.status===200){
                 this.setState({
-                    treatment:response.data,
+                    category:response.data,
                     initValue:{...this.state.initValue,
-                        title:response.data.title,
-                        traduction_french:response.data.traduction_french,
-                        traduction_malagasy:response.data.traduction_malagasy
+                        labelle_categorie:response.data.labelle_categorie,
+                        categorie_french:response.data.categorie_french,
+                        categorie_malagasy:response.data.categorie_malagasy
                     }
                 })
             }
@@ -38,15 +38,16 @@ class FormEditTreatment extends React.Component {
 		return (
 
 			<>
+            <div id="back-admin" >
             <HeaderAdmin/>
             {this.state.initValue !== null?(
                 <Formik
                     initialValues={this.state.initValue}
                     validationSchema={this.EditTreatmentSchema}
                     onSubmit={(values, { resetForm }) => {
-                        axios.patch(`/treatments/${this.state.treatment.id}`,values).then(response =>{
+                        axios.patch(`/categories/${this.state.category.id}`,values).then(response =>{
                             if(response.status===200){
-                                history.push('/Admin/Treatments')
+                                history.push('/Admin/Categories')
                                 window.location.reload()
                             }
                         })
@@ -54,27 +55,27 @@ class FormEditTreatment extends React.Component {
                 >
                             {({errors,touched,handleSubmit}) =>
                             (<Form>
-                            <div className="my-10 text-purple-900">
-                                <label className="flex justify-center text-white ">{t('Treatment title')} : {this.state.treatment.title}</label>
-                                <div className="flex justify-center">
-                                    <Field type="text" name="title" className="w-96 rounded-full py-3 px-6 border-2 border-purple-900"/>
-                                </div>
-                                <div className="flex justify-center">
-                                    <ErrorField  errors={errors} touched={touched} row="title"/>
-                                </div>
-                                <label className="flex justify-center text-white">{t('French traduction')}</label>
+                            <div className="my-10">
+                                <label className="flex justify-center text-purple-600">{t('label Category')}</label>
                                 <div className="flex justify-center mt-5">
-                                    <Field type="text" name="traduction_french"  className="w-96 rounded-full py-3 px-6 border-2 border-purple-900"/>
+                                    <Field type="text" name="labelle_categorie"  className="w-96 rounded-full py-3 px-6 border-2 border-purple-900"/>
                                 </div>
                                 <div className="flex justify-center">
-                                    <ErrorField  errors={errors} touched={touched} row="traduction_french"/>
+                                    <ErrorField  errors={errors} touched={touched} row="labelle_categorie"/>
                                 </div>
-                                <label className="flex justify-center text-white">{t('Malagasy traduction')}</label>
+                                <label className="flex justify-center text-purple-600">{t('French traduction')}</label>
                                 <div className="flex justify-center mt-5">
-                                    <Field type="text" name="traduction_malagasy"  className="w-96 rounded-full py-3 px-6 border-2 border-purple-900"/>
+                                    <Field type="text" name="categorie_french"  className="w-96 rounded-full py-3 px-6 border-2 border-purple-900"/>
                                 </div>
                                 <div className="flex justify-center">
-                                    <ErrorField  errors={errors} touched={touched} row="traduction_malagasy"/>
+                                    <ErrorField  errors={errors} touched={touched} row="categorie_french"/>
+                                </div>
+                                <label className="flex justify-center text-purple-600">{t('Malagasy traduction')}</label>
+                                <div className="flex justify-center mt-5">
+                                    <Field type="text" name="categorie_malagasy"  className="w-96 rounded-full py-3 px-6 border-2 border-purple-900"/>
+                                </div>
+                                <div className="flex justify-center">
+                                    <ErrorField  errors={errors} touched={touched} row="categorie_malagasy"/>
                                 </div>
                                 <div className="flex justify-center my-5"><button className="text-center text-white rounded-full w-20 bg-purple-600 border-2 border-purple-900" type="submit" id="enter">{t('Enter')}</button></div>
                             </div>
@@ -82,11 +83,11 @@ class FormEditTreatment extends React.Component {
                             }
                         </Formik>
             ):(<h3>Loading...</h3>)}
-             
+            </div>
 			</>
 		)
 	}
 }
 
 
-export default withTranslation()(FormEditTreatment);
+export default withTranslation()(FormEditCategory);

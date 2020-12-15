@@ -1,0 +1,10 @@
+#background {
+    background: url('../images/bgimage.jpg');
+    background-size: cover;
+    height: 100vh;
+}
+#back-treatment {
+    background: url('../images/congrats.jpg');
+    background-size: cover;
+    height: 100vh;
+}

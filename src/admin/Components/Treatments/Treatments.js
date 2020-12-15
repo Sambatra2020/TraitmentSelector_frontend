@@ -1,6 +1,10 @@
 import React from 'react';
 import axios from '../../../axios';
 import { Link } from 'react-router-dom';
+import HeaderAdmin from '../../HeaderAdmin';
+import { withTranslation } from 'react-i18next';
+import i18n from '../../../i18n';
+import '../../admin.css'
 
 class AdminTreatments extends React.Component {
     constructor (props) {
@@ -23,28 +27,43 @@ class AdminTreatments extends React.Component {
         console.log(id)
 
     }
+    deleteTreatment(id){
+        axios.delete(`/treatments/${id}`)
+        window.location.reload()
+    }
     
 	render() {
+        const { t } = this.props;
         return (
-			<div>
+			<div id="back-admin">
+                <HeaderAdmin/>
                 {this.state.treatments?(
                     <>
                     <div >
-                        <label className="flex justify-center mt-10 text-3xl text-blue-500">This is the list of all treatment </label>
-                        <label className="flex justify-center my-10">
-                             <Link to={'/AddTreatment'}>Create new treatment</Link>
+                        <label className="flex justify-center mt-10 text-3xl text-white">{t('This is the list of all treatment')} </label>
+                        <label className="flex justify-center my-10 text-white">
+                             <Link to={'/AddTreatment'}>{t('Create new treatment')}</Link>
                        </label>
-                       <label className="flex justify-center text-2xl text-purple-500">Please select one to editv</label>
+                       <div>
                             {this.state.treatments.map(treatment =>(
-                                 <label className="flex justify-center my-10" key={treatment.id}>
-                                    <Link to={`/EditTreatment/${treatment.id}`}>{treatment.title}</Link>
+                                <div className="flex justify-end w-7/12  my-10" key={treatment.id}>
+                                <label className="flex w-2/12 break-all text-white text-base">
+                                    {i18n.language==='en'?(treatment.title):(i18n.language==='fr' && treatment.traduction_french?(treatment.traduction_french):(i18n.language==='mg' && treatment.traduction_malagasy?(treatment.traduction_malagasy):(treatment.title)))}
                                  </label>
+                                <label className="text-purple-900 mx-10">
+                                    <Link to={`/EditTreatment/${treatment.id}`}>{t('edit')}</Link>
+                                 </label>
+                                 <label className="text-red-500" onClick={e => this.deleteTreatment(treatment.id)}>
+                                    {t('delete')}
+                                 </label>
+                                </div>
                             ))}
+                        </div>
                     </div>
                     
                     </>
                    
-                ):null}
+                ):(<h1>Loading...</h1>)}
             </div>
         )
 		
@@ -52,4 +71,4 @@ class AdminTreatments extends React.Component {
 }
 
 
-export default AdminTreatments;
+export default withTranslation()(AdminTreatments);

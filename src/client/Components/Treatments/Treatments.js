@@ -3,6 +3,12 @@ import axios from '../../../axios';
 import Registration from '../Registration/Registration';
 import { Formik, Form, Field } from 'formik';
 import history from '../../../History'
+import Header from '../Header/Header';
+import {withTranslation } from 'react-i18next';
+import i18n from '../../../i18n';
+import '../../client.css'
+
+
 class Treatments extends React.Component {
     constructor (props) {
         super(props)
@@ -30,17 +36,24 @@ class Treatments extends React.Component {
             }
         })
      }
+
+    changeLanguage = (language) => {
+		i18n.changeLanguage(language);
+    };
+   
     
 	render() {
-        console.log(this.state.patient_id)
+        const { t } = this.props;
+        console.log(i18n.language);
         return (
-			<div>
+			<div id="background">
+            <Header/>
                 {this.state.etape===1?(<Registration changerEtape={this.changerEtape}/>):null}
                 {this.state.etape===2 && this.state.treatments ?(
                     <>
-                    <div >
-                        <label className="flex justify-center mt-10 text-3xl text-blue-500">Welcome {this.state.name}</label>
-                        <label className="flex justify-center text-2xl text-purple-500">Please select one treatment</label>
+                    <div>
+                        <label className="flex justify-center mt-10 text-3xl text-blue-500">{t('Welcome')} {this.state.name}</label>
+                        <label className="flex justify-center text-2xl text-purple-500">{t('Please select one treatment')}</label>
                         <Formik
                             initialValues={{
                                 treatment_id:null
@@ -60,12 +73,17 @@ class Treatments extends React.Component {
                         {({handleSubmit})=>(
                             <Form>
                                 {this.state.treatments.map(treatment =>(
-                                    <label className="flex justify-center my-10" key={treatment.id}>
+                                    <div className="flex justify-end w-7/12 my-10 text-purple-900">
+                                    <label className="w-1/3" key={treatment.id}>
+                                       
                                         <Field type="radio"  value={treatment.id.toString()} name="treatment_id" />
-                                        {treatment.title}
+                                        {i18n.language==='en'?(treatment.title):(i18n.language==='fr' && treatment.traduction_french?(treatment.traduction_french):(i18n.language==='mg' && treatment.traduction_malagasy?(treatment.traduction_malagasy):(treatment.title)))}
+                                        
                                     </label>
+                                    </div>
+                                   
                                 ))}
-                                <div className="flex justify-center my-5"><button className="text-center text-white rounded-full w-20 bg-purple-600 border-2 border-purple-900" type="submit" id="enter">Valider</button></div>
+                                <div className="flex justify-center my-5"><button className="text-center text-white rounded-full w-20 bg-purple-600 border-2 border-purple-900" type="submit" id="enter">{t('Valider')}</button></div>
                             </Form>
                         )}
                         </Formik>
@@ -82,4 +100,4 @@ class Treatments extends React.Component {
 }
 
 
-export default Treatments;
+export default withTranslation()(Treatments);

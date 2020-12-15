@@ -1,13 +1,13 @@
 import React  from 'react';
 import FormEditTreatment from './FormEditTreatment';
+import '../../admin.css'
 
 function EditTreatment(propos) {
 
 
     return (
         <>
-        <div>
-            <h1 className="flex justify-center mt-10 text-purple-500">WELCOME HOME TO THE EDIT TREATMENT PAGE</h1>
+        <div id="back-admin">
             <div>
                <FormEditTreatment id={propos.match.params.id}/>
             </div>
