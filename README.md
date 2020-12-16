@@ -8,4 +8,7 @@
  * 3- npm install
  * 4- npm start
 
+* admin name: admin
+* password: admin
+
 
